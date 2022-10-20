@@ -8,6 +8,9 @@ plugins {
 android {
     compileSdk 32
 
+    def properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
     defaultConfig {
         minSdk 26
         targetSdk 32
@@ -15,6 +18,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "ENCODE_API_KEY", properties["encode_key"]
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
