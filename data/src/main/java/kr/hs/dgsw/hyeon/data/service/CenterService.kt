@@ -1,8 +1,7 @@
 package kr.hs.dgsw.hyeon.data.service
 
-import kr.hs.dgsw.hyeon.data.entity.Response
+import kr.hs.dgsw.hyeon.data.model.Response
 import kr.hs.dgsw.hyeon.data.model.CenterResponse
-import kr.hs.dgsw.hyeon.domain.model.Center
 import retrofit2.http.GET
 import retrofit2.http.Query
 

@@ -1,6 +1,4 @@
-package kr.hs.dgsw.hyeon.data.entity
-
-import kr.hs.dgsw.hyeon.domain.model.Center
+package kr.hs.dgsw.hyeon.data.model
 
 data class Response<T>(
     val page: Int,
