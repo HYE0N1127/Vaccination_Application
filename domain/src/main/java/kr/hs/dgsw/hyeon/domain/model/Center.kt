@@ -7,4 +7,6 @@ data class Center(
     val address: String,
     val updateAt: String,
     val phoneNumber: String
+    val lat: String,
+    val lng: String
 )
