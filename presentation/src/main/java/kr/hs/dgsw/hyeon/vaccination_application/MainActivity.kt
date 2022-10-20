@@ -1,4 +1,4 @@
-package kr.hs.dgsw.hyeon.autocrypt_assignment
+package kr.hs.dgsw.hyeon.vaccination_application
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

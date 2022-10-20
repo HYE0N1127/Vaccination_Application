@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="kr.hs.dgsw.hyeon.autocrypt_assignment">
+    package="kr.hs.dgsw.hyeon.vaccination_application">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AutoCrypt_Assignment">
         <activity
-            android:name=".MainActivity"
+            android:name="kr.hs.dgsw.hyeon.vaccination_application.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

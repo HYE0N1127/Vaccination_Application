@@ -96,5 +96,5 @@ dependencies {
     implementation 'com.naver.maps:map-sdk:3.15.0'
 
     implementation project(":data")
-    implementation project(":domain")
+    implementation project(':domain')
 }
