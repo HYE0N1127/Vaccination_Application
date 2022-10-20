@@ -1,18 +1,14 @@
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
+    id 'java-library'
+    id 'kotlin'
 }
 
 java {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
 }
 
 dependencies {
-    // Pagination
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
-    
     // Flow
-    implementation "androidx.paging:paging-common:3.1.1"
-
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
 }

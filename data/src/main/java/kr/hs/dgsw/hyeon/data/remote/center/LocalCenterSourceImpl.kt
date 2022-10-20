@@ -12,7 +12,7 @@ import javax.inject.Inject
 class LocalCenterSourceImpl @Inject constructor(
     private val dao: CenterDao
 ) : LocalCenterDataSource {
-    override fun getCenterDataByRemote(page: Int): Flow<List<Center>> {
+    override fun getCenterDataByRemote(): Flow<List<Center>> {
         val centerList = dao.getCenterData().map { list ->
             list.map {
                 it.toModel()
