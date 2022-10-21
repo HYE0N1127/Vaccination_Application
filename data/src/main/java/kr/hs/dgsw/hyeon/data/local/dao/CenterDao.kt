@@ -11,7 +11,7 @@ interface CenterDao {
     @Query("SELECT * FROM center_table")
     fun getCenterData(): Flow<List<CenterEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCenter(entity: CenterEntity)
 
     @Delete
