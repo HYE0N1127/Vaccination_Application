@@ -7,5 +7,5 @@ import kr.hs.dgsw.hyeon.domain.repository.center.LocalCenterRepository
 class GetLocalCenterDataUseCase constructor(
     private val repository: LocalCenterRepository
 ) {
-    operator fun invoke(): Flow<List<Center>> = repository.getCenterData()
+    suspend operator fun invoke(): List<Center> = repository.getCenterData()
 }

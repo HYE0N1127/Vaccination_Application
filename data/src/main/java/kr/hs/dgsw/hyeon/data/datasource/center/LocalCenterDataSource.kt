@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kr.hs.dgsw.hyeon.domain.model.Center
 
 interface LocalCenterDataSource {
-    fun getCenterDataByRemote() : Flow<List<Center>>
+    suspend fun getCenterDataByRemote() : List<Center>
 
     suspend fun insertCenterData(center: Center)
 
