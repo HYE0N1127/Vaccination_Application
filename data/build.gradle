@@ -20,6 +20,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "ENCODE_API_KEY", properties["encode_key"]
+        buildConfigField "String", "DECODE_API_KEY", properties["decode_key"]
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
