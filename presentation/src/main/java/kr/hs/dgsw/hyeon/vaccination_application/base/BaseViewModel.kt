@@ -19,7 +19,6 @@ open class BaseViewModel : ViewModel() {
     private val flowJobList: MutableMap<String, Job> = mutableMapOf()
 
     fun <T> launchFlow(key: String, flow: Flow<T>, callback: (T) -> Unit) {
-        flowJobList[key]?.cancel()
         flowJobList[key] = viewModelScope.launch {
             flow.catch {
                 it.printStackTrace()
