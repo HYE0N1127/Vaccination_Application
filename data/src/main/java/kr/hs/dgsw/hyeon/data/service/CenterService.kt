@@ -10,6 +10,6 @@ interface CenterService {
     @GET("15077586/v1/centers")
     suspend fun getCenterDataByRemote(
         @Query("page") page: Int,
-        @Query("serviceKey") serviceKey: String = BuildConfig.ENCODE_API_KEY
+        @Query("serviceKey") serviceKey: String = BuildConfig.DECODE_API_KEY
     ): Response<List<CenterResponse>>
 }
