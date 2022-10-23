@@ -34,7 +34,6 @@ class SplashViewModel @Inject constructor(
         isLoading.postValue(true)
 
         for (i in 1 until 11) {
-            Log.d("Test5", "$i")
             searchCenterList(i)
         }
 
