@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">AutoCrypt_Assignment</string>
+    <string name="text_feature_move_user_location">자신의 위치로 이동시키는 버튼</string>
 
 </resources>
