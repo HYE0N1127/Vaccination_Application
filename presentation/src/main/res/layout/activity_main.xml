@@ -13,10 +13,11 @@
         tools:context=".view.MainActivity">
 
         <fragment
-            android:id="@+id/map_fragment"
+            android:id="@+id/map_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="com.naver.maps.map.MapFragment"/>
+            android:name="com.naver.maps.map.MapFragment"
+            app:navermap_mapType="Terrain"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

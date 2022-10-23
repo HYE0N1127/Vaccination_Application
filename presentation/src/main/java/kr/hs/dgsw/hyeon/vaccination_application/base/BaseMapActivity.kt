@@ -1,15 +1,13 @@
 package kr.hs.dgsw.hyeon.vaccination_application.base
 
 import android.os.Bundle
-import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.FragmentActivity
+import com.naver.maps.map.OnMapReadyCallback
 import kr.hs.dgsw.hyeon.vaccination_application.BR
-import kr.hs.dgsw.hyeon.vaccination_application.R
-import java.lang.reflect.ParameterizedType
-import java.util.*
 
-abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel> : AppCompatActivity() {
+abstract class BaseMapActivity<VB : ViewDataBinding, VM : BaseViewModel> : FragmentActivity(), OnMapReadyCallback {
     protected lateinit var binding: VB
     protected lateinit var mViewModel: VM
 
