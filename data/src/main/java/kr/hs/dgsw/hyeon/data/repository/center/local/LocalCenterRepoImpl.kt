@@ -10,7 +10,7 @@ class LocalCenterRepoImpl @Inject constructor(
     private val source: LocalCenterDataSource
 ): LocalCenterRepository {
 
-    override fun getCenterData(): Flow<List<Center>> =
+    override suspend fun getCenterData(): List<Center> =
         source.getCenterDataByRemote()
 
     override suspend fun insertCenter(center: Center) =

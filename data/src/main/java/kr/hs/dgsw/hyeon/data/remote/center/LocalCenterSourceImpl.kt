@@ -12,14 +12,11 @@ import javax.inject.Inject
 class LocalCenterSourceImpl @Inject constructor(
     private val dao: CenterDao
 ) : LocalCenterDataSource {
-    override fun getCenterDataByRemote(): Flow<List<Center>> {
-        val centerList = dao.getCenterData().map { list ->
-            list.map {
-                it.toModel()
-            }
-        }
 
-        return centerList
+    override suspend fun getCenterDataByRemote(): List<Center> {
+        return dao.getCenterData().map {
+            it.toModel()
+        }
     }
 
     override suspend fun insertCenterData(center: Center) {

@@ -9,9 +9,9 @@ import kr.hs.dgsw.hyeon.domain.model.Center
 interface CenterDao {
 
     @Query("SELECT * FROM center_table")
-    fun getCenterData(): Flow<List<CenterEntity>>
+    suspend fun getCenterData(): List<CenterEntity>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertCenter(entity: CenterEntity)
 
     @Delete
