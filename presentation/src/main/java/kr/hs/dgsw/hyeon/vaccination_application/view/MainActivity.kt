@@ -98,8 +98,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), OnMapRe
 
                 }
 
-                Log.d("Hyeon_Test", "${markers.size}")
-
                 markers.forEach { (markerItem, center) ->
                     markerItem.map = map
 
@@ -141,7 +139,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), OnMapRe
         val userLocation: Location = getLatLng()
         latitude = userLocation.latitude
         longitude = userLocation.longitude
-        Log.d("CheckCurrentLocation", "현재 내 위치 값: $latitude, $longitude")
 
         var mGeocoder = Geocoder(applicationContext, Locale.KOREAN)
         var mResultList: List<Address>? = null
@@ -169,10 +166,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), OnMapRe
             val providers = locationManager!!.getProviders(true)
             for (provider in providers) {
                 val l = locationManager!!.getLastKnownLocation(provider) ?: continue
-                if (bestLocation == null || l.accuracy < bestLocation.accuracy) {
-                    // Found best last known location: %s", l);
+                if (bestLocation == null || l.accuracy < bestLocation.accuracy)
                     bestLocation = l
-                }
+
             }
         }
         return bestLocation!!

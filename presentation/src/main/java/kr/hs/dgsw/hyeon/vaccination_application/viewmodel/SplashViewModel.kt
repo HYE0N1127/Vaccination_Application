@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import kr.hs.dgsw.hyeon.domain.model.Center
 import kr.hs.dgsw.hyeon.domain.usecase.center.local.InsertCenterDataUseCase
@@ -21,7 +22,9 @@ class SplashViewModel @Inject constructor(
     private val insertCenterDataUseCase: InsertCenterDataUseCase,
 ): BaseViewModel() {
 
-    val collectDoneEvent = SingleLiveEvent<Unit>()
+
+    val collectSuccessEvent = SingleLiveEvent<Unit>()
+    val collectFailureEvent = SingleLiveEvent<Unit>()
 
     private val _centerList = MutableLiveData<List<Center>>()
     val centerList : LiveData<List<Center>> get() = _centerList
@@ -38,15 +41,18 @@ class SplashViewModel @Inject constructor(
         }
 
         isLoading.postValue(false)
-        collectDoneEvent.call()
     }
 
-    private fun searchCenterList(page: Int) {
-        launchFlow("SearchCenterListJob", getRemoteCenterDataUseCase(page)) {
+    private fun searchCenterList(page: Int) = viewModelScope.launch {
+        getRemoteCenterDataUseCase(page).catch {
+            collectFailureEvent.call()
+        }.collect {
             it.forEach { center ->
                 insertCenterData(center)
             }
+            collectSuccessEvent.call()
         }
+
     }
 
     private fun insertCenterData(center: Center) = viewModelScope.launch(Dispatchers.IO) {
