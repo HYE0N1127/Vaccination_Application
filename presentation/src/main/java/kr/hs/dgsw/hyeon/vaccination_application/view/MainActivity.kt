@@ -1,11 +1,22 @@
 package kr.hs.dgsw.hyeon.vaccination_application.view
 
+import android.Manifest
 import android.app.AlertDialog
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.UiThread
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
@@ -16,6 +27,8 @@ import kr.hs.dgsw.hyeon.vaccination_application.R
 import kr.hs.dgsw.hyeon.vaccination_application.base.BaseActivity
 import kr.hs.dgsw.hyeon.vaccination_application.databinding.ActivityMainBinding
 import kr.hs.dgsw.hyeon.vaccination_application.viewmodel.MainViewModel
+import java.io.IOException
+import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), OnMapReadyCallback {
@@ -23,6 +36,12 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), OnMapRe
     private lateinit var map: NaverMap
 
     private val markers = mutableListOf<Pair<Marker, Center>>()
+
+    var locationManager : LocationManager? = null
+    private val REQUEST_CODE_LOCATION : Int = 2
+    var currentLocation : String = ""
+    var latitude : Double? = null
+    var longitude : Double? = null
 
     override fun createBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
 
@@ -78,15 +97,23 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), OnMapRe
 
                 }
 
+                Log.d("Hyeon_Test", "${markers.size}")
+
                 markers.forEach { (markerItem, center) ->
                     markerItem.map = map
-                    Log.d("Test5", "$center")
 
                     markerItem.setOnClickListener {
                         centerInformationDialog(center)
+                        val cameraUpdate = CameraUpdate.scrollTo(LatLng(center.lat.toDouble(), center.lng.toDouble()))
+                        map.moveCamera(cameraUpdate)
                         true
                     }
                 }
+            }
+            binding.btnLocation.setOnClickListener {
+                getCurrentLoc()
+                val cameraUpdate = CameraUpdate.scrollTo(LatLng(latitude!!, longitude!!))
+                map.moveCamera(cameraUpdate)
             }
         }
     }
@@ -96,10 +123,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), OnMapRe
             setTitle("접종 센터 정보")
             setMessage(
                 "주소 : ${center.address}" + "\n" +
-                "센터명 : ${center.centerName}" + "\n" +
-                "시설명 : ${center.facilityName}" + "\n" +
-                "전화번호 : ${center.phoneNumber}" + "\n" +
-                "업데이트 날짜 : ${center.updateAt}"
+                        "센터명 : ${center.centerName}" + "\n" +
+                        "시설명 : ${center.facilityName}" + "\n" +
+                        "전화번호 : ${center.phoneNumber}" + "\n" +
+                        "업데이트 날짜 : ${center.updateAt}"
             )
             setNegativeButton("확인") { dialog, _ ->
                 dialog.dismiss()
@@ -108,5 +135,45 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), OnMapRe
 
         dialog.show()
     }
+    private fun getCurrentLoc() {
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager?
+        val userLocation: Location = getLatLng()
+        latitude = userLocation.latitude
+        longitude = userLocation.longitude
+        Log.d("CheckCurrentLocation", "현재 내 위치 값: $latitude, $longitude")
 
+        var mGeocoder = Geocoder(applicationContext, Locale.KOREAN)
+        var mResultList: List<Address>? = null
+        try {
+            mResultList = mGeocoder.getFromLocation(
+                latitude!!, longitude!!, 1
+            )
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        if (mResultList != null) {
+            Log.d("CheckCurrentLocation", mResultList[0].getAddressLine(0))
+            currentLocation = mResultList[0].getAddressLine(0)
+            currentLocation = currentLocation.substring(11)
+        }
+    }
+
+    private fun getLatLng() : Location {
+        var bestLocation: Location? = null
+        if (ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), this.REQUEST_CODE_LOCATION)
+            getLatLng()
+        } else {
+            val providers = locationManager!!.getProviders(true)
+            for (provider in providers) {
+                val l = locationManager!!.getLastKnownLocation(provider) ?: continue
+                if (bestLocation == null || l.accuracy < bestLocation.accuracy) {
+                    // Found best last known location: %s", l);
+                    bestLocation = l
+                }
+            }
+        }
+        return bestLocation!!
+    }
 }

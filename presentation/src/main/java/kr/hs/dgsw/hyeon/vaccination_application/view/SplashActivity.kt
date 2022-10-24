@@ -22,6 +22,11 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
             collectDoneEvent.observe(this@SplashActivity) {
                 val intent = Intent(this@SplashActivity, MainActivity::class.java)
                 startActivity(intent)
+                finish()
+            }
+            centerList.observe(this@SplashActivity) {
+                Log.d("Hyeon_Test5", "$it")
+
             }
         }
     }

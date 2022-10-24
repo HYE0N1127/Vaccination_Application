@@ -12,19 +12,6 @@
         android:layout_height="match_parent"
         tools:context=".view.MainActivity">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/map_card"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginHorizontal="15dp"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_weight="8">
-
             <fragment
                 android:id="@+id/map_layout"
                 android:name="com.naver.maps.map.MapFragment"
@@ -32,9 +19,17 @@
                 android:layout_height="match_parent"
                 app:navermap_mapType="Terrain" />
 
-        </androidx.cardview.widget.CardView>
 
-
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_location"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_margin="20dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_icon_location"
+            app:fabCustomSize="45dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
