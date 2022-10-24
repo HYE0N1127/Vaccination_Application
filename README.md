@@ -1,5 +1,4 @@
-# AutoCrypt_Assignment
-아우토크립트 채용 과제 Repository
+# Vaccination_Application
 
 사용 Tech Stack
 ---
