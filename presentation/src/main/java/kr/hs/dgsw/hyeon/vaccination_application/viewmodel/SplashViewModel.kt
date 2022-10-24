@@ -1,12 +1,10 @@
 package kr.hs.dgsw.hyeon.vaccination_application.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import kr.hs.dgsw.hyeon.domain.model.Center
@@ -20,14 +18,11 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor(
     private val getRemoteCenterDataUseCase: GetRemoteCenterDataUseCase,
     private val insertCenterDataUseCase: InsertCenterDataUseCase,
-): BaseViewModel() {
+) : BaseViewModel() {
 
 
     val collectSuccessEvent = SingleLiveEvent<Unit>()
     val collectFailureEvent = SingleLiveEvent<Unit>()
-
-    private val _centerList = MutableLiveData<List<Center>>()
-    val centerList : LiveData<List<Center>> get() = _centerList
 
     init {
         selectCenterData()

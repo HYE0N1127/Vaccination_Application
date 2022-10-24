@@ -19,7 +19,6 @@ class MainViewModel @Inject constructor(
     private val _localCenterList = MutableLiveData<List<Center>>()
     val localCenterList: LiveData<List<Center>> get() = _localCenterList
 
-
     fun getUserData() = viewModelScope.launch(Dispatchers.IO) {
         isLoading.postValue(true)
 

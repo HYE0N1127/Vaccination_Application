@@ -43,6 +43,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
             }
         }
     }
+
     override fun onError(e: Throwable) {
         super.onError(e)
         val dialog = AlertDialog.Builder(this).apply {

@@ -10,11 +10,9 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.UiThread
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.MapFragment
@@ -37,11 +35,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), OnMapRe
 
     private val markers = mutableListOf<Pair<Marker, Center>>()
 
-    var locationManager : LocationManager? = null
-    private val REQUEST_CODE_LOCATION : Int = 2
-    var currentLocation : String = ""
-    var latitude : Double? = null
-    var longitude : Double? = null
+    var locationManager: LocationManager? = null
+    private val REQUEST_CODE_LOCATION: Int = 2
+    var currentLocation: String = ""
+    var latitude: Double? = null
+    var longitude: Double? = null
 
     override fun createBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
 
@@ -103,7 +101,12 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), OnMapRe
 
                     markerItem.setOnClickListener {
                         centerInformationDialog(center)
-                        val cameraUpdate = CameraUpdate.scrollTo(LatLng(center.lat.toDouble(), center.lng.toDouble()))
+                        val cameraUpdate = CameraUpdate.scrollTo(
+                            LatLng(
+                                center.lat.toDouble(),
+                                center.lng.toDouble()
+                            )
+                        )
                         map.moveCamera(cameraUpdate)
                         true
                     }
@@ -134,6 +137,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), OnMapRe
 
         dialog.show()
     }
+
     private fun getCurrentLoc() {
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager?
         val userLocation: Location = getLatLng()
@@ -156,11 +160,22 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), OnMapRe
         }
     }
 
-    private fun getLatLng() : Location {
+    private fun getLatLng(): Location {
         var bestLocation: Location? = null
-        if (ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), this.REQUEST_CODE_LOCATION)
+        if (ActivityCompat.checkSelfPermission(
+                applicationContext,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(
+                applicationContext,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                this.REQUEST_CODE_LOCATION
+            )
             getLatLng()
         } else {
             val providers = locationManager!!.getProviders(true)
