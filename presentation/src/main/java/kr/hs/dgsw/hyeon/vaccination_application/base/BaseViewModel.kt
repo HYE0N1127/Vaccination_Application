@@ -16,15 +16,4 @@ open class BaseViewModel : ViewModel() {
 
     val onErrorEvent: MutableLiveData<Throwable> = MutableLiveData()
 
-    private val flowJobList: MutableMap<String, Job> = mutableMapOf()
-
-    fun <T> launchFlow(key: String, flow: Flow<T>, callback: (T) -> Unit) {
-        flowJobList[key] = viewModelScope.launch {
-            flow.catch {
-                it.printStackTrace()
-                onErrorEvent.postValue(it)
-            }.collect { callback(it) }
-        }
-    }
-
 }

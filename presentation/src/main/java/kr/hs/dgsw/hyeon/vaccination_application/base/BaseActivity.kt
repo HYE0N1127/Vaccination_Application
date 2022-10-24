@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LiveData
 import kr.hs.dgsw.hyeon.vaccination_application.BR
 import kr.hs.dgsw.hyeon.vaccination_application.R
 import java.lang.reflect.ParameterizedType
@@ -21,6 +22,7 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel> : AppCompa
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         performDataBinding()
+        setContentView(binding.root)
         initObserver()
     }
 
