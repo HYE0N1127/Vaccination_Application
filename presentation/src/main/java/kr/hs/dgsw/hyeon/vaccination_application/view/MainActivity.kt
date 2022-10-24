@@ -56,6 +56,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), OnMapRe
             }
         mapFragment.getMapAsync(this)
 
+        getCurrentLoc()
     }
 
     @UiThread

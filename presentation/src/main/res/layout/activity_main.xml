@@ -27,6 +27,7 @@
             android:layout_margin="20dp"
             android:backgroundTint="@color/white"
             android:src="@drawable/ic_icon_location"
+            app:borderWidth="0dp"
             app:fabCustomSize="45dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
