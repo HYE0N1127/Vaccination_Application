@@ -7,6 +7,8 @@ plugins {
 
 android {
     compileSdk 32
+    def properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
     defaultConfig {
         applicationId "kr.hs.dgsw.hyeon.autocrypt_assignment"
@@ -16,6 +18,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "BASE_URL", properties["base_url"]
     }
 
     buildTypes {
@@ -63,6 +67,9 @@ dependencies {
     // Coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
 
+    // Location
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+
     // Dagger Hilt
     implementation "com.google.dagger:hilt-android:2.38.1"
     kapt "com.google.dagger:hilt-android-compiler:2.38.1"
@@ -84,6 +91,11 @@ dependencies {
     // Naver Map
     implementation 'com.naver.maps:map-sdk:3.15.0'
 
+    // Room
+    implementation "androidx.room:room-runtime:2.4.3"
+    kapt "androidx.room:room-compiler:2.4.3"
+    implementation "androidx.room:room-ktx:2.4.3"
+
     implementation project(":data")
-    implementation project(":domain")
+    implementation project(':domain')
 }

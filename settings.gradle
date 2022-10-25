@@ -9,7 +9,7 @@ dependencyResolutionManagement {
         }
     }
 }
-rootProject.name = "AutoCrypt_Assignment"
+rootProject.name = "Vaccination_Application"
 include ':presentation'
 include ':data'
 include ':domain'

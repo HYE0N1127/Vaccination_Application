@@ -8,6 +8,9 @@ plugins {
 android {
     compileSdk 32
 
+    def properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
     defaultConfig {
         minSdk 26
         targetSdk 32
@@ -15,6 +18,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "ENCODE_API_KEY", properties["encode_key"]
+        buildConfigField "String", "DECODE_API_KEY", properties["decode_key"]
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -52,5 +58,5 @@ dependencies {
     kapt "androidx.room:room-compiler:2.4.3"
     implementation "androidx.room:room-ktx:2.4.3"
 
-    implementation project(":domain")
+    implementation project(':domain')
 }
